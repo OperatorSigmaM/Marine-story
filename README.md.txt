@@ -5,7 +5,7 @@
 
 ## Просмотр
 Сайт доступен через GitHub Pages по адресу:  
-https://github.com/OperatorSigmaM/Marine-story
+https://operatorsigmam.github.io/Marine-story/
 
 ## Структура
 - `index.html` — основная страница с рассказом.
@@ -16,3 +16,4 @@ https://github.com/OperatorSigmaM/Marine-story
 
 ## Лицензия
 Свободное использование с сохранением авторства.
+
