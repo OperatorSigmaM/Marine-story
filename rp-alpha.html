@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RP-α Technical Documentation</title>
+    <style>
+        @page {
+            margin: 20mm;
+            size: A4;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        /* Cover page */
+        .cover-page {
+            text-align: center;
+            page-break-after: always;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #2c3e50;
+            padding: 40px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .cover-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .cover-subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .cover-logo {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #2c3e50;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            background: white;
+        }
+        
+        .cover-info {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .cover-classification {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            transform: rotate(15deg);
+        }
+        
+        /* Table of contents */
+        .toc-page {
+            page-break-before: always;
+            page-break-after: always;
+        }
+        
+        .toc-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+        
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 5px;
+        }
+        
+        .toc-item .title {
+            flex-grow: 1;
+        }
+        
+        .toc-item .page {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        /* Main content */
+        .content-page {
+            page-break-before: always;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #34495e;
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        /* Diagrams */
+        .diagram {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        
+        /* Specifications */
+        .spec-box {
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            background: #ecf0f1;
+        }
+        
+        .spec-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        /* Warnings */
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 5px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .warning-title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 5px;
+        }
+        
+        .danger {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .danger-title {
+            font-weight: bold;
+            color: #721c24;
+            margin-bottom: 5px;
+        }
+        
+        /* Page numbering */
+        .page-number {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        /* Formulas and technical data */
+        .formula {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        
+        /* Signatures */
+        .signature-block {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature {
+            text-align: center;
+            width: 200px;
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid #333;
+            margin-bottom: 5px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover page -->
+    <div class="cover-page">
+        <div class="cover-classification">TECHNICAL DOCUMENTATION</div>
+        <div class="cover-logo">RP-α</div>
+        <div class="cover-title">Resonance Tuning Device</div>
+        <div class="cover-subtitle">Technical Protocol and Operation Manual</div>
+        
+        <div class="cover-info">
+            <p><strong>Document Version:</strong> 1.0</p>
+            <p><strong>Release Date:</strong> 2025</p>
+            <p><strong>Classification:</strong> Experimental Technology</p>
+            <p><strong>Status:</strong> Prototype</p>
+        </div>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="toc-page">
+        <div class="toc-title">Table of Contents</div>
+        
+        <div class="toc-item">
+            <div class="title">1. Device Purpose</div>
+            <div class="page">3</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">2. Operating Principle</div>
+            <div class="page">3</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">3. Technical Specifications</div>
+            <div class="page">4</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">4. Device Construction</div>
+            <div class="page">5</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">5. Architectural Levels</div>
+            <div class="page">6</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">6. Module Structure</div>
+            <div class="page">7</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">7. Control System</div>
+            <div class="page">9</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">8. Electrical Schematic</div>
+            <div class="page">10</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">9. Software</div>
+            <div class="page">11</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">10. Operating Modes</div>
+            <div class="page">12</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">11. Usage Stages</div>
+            <div class="page">13</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">12. Safety Measures</div>
+            <div class="page">14</div>
+        </div>
+        <div class="toc-item">
+            <div class="title">Appendices</div>
+            <div class="page">15</div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content-page">
+        <h1>1. Device Purpose</h1>
+        
+        <p>The RP-α device is designed for harmonic interaction with matter through precise resonance frequency tuning with minimal energy load. The primary goal is to create a practical mechanism for subtle interaction with substances through acoustic, mechanical, and field waves.</p>
+
+        <div class="spec-box">
+            <div class="spec-title">Application Areas:</div>
+            <ul>
+                <li>Research of material resonance properties</li>
+                <li>Substance structure modification</li>
+                <li>Bioacoustic experiments</li>
+                <li>Precision object levitation</li>
+            </ul>
+        </div>
+
+        <h1>2. Operating Principle</h1>
+        
+        <p>The device operates on the principle of adaptive resonance interaction with matter:</p>
+        
+        <ol>
+            <li><strong>Scanning:</strong> the device scans objects (e.g., stone or water) using spectral sensors and microphones/vibration detectors.</li>
+            
+            <li><strong>Recognition:</strong> the built-in algorithm identifies material resonance peaks.</li>
+            
+            <li><strong>Tuning:</strong> the microcontroller adjusts output frequencies of wave sources (piezoelements, quartz resonators).</li>
+            
+            <li><strong>Impact:</strong> resonance waves are amplified inside the resonance chamber and directed at the object with high precision.</li>
+            
+            <li><strong>Monitoring:</strong> the system monitors material response and corrects the impact in real-time.</li>
+            
+            <li><strong>Final phase:</strong> the object's structure either changes (softening, structuring) or activates (droplet levitation, plant growth enhancement).</li>
+        </ol>
+
+        <div class="warning">
+            <div class="warning-title">ATTENTION:</div>
+            The device operates only in harmonic interaction mode. Forceful impact is architecturally excluded.
+        </div>
+
+        <h1>3. Technical Specifications</h1>
+        
+        <table>
+            <tr>
+                <th>Characteristic</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Dimensions (standard version)</td>
+                <td>70×70×45 cm</td>
+            </tr>
+            <tr>
+                <td>Dimensions (portable version)</td>
+                <td>30×30×15 cm</td>
+            </tr>
+            <tr>
+                <td>Weight (standard/portable)</td>
+                <td>~25 kg / ~5 kg</td>
+            </tr>
+            <tr>
+                <td>Operating distance</td>
+                <td>0.1—10 m</td>
+            </tr>
+            <tr>
+                <td>Frequency range</td>
+                <td>0.1 Hz — 1 MHz</td>
+            </tr>
+            <tr>
+                <td>Frequency tuning accuracy</td>
+                <td>0.001 Hz</td>
+            </tr>
+            <tr>
+                <td>Autonomous operation time</td>
+                <td>20+ hours</td>
+            </tr>
+            <tr>
+                <td>Housing materials</td>
+                <td>Granite, quartz, copper, ash wood</td>
+            </tr>
+            <tr>
+                <td>Control interface</td>
+                <td>OLED display + Bluetooth + WiFi</td>
+            </tr>
+            <tr>
+                <td>Spectral analysis</td>
+                <td>Real-time</td>
+            </tr>
+            <tr>
+                <td>Types of generated waves</td>
+                <td>Mechanical, acoustic, resonance</td>
+            </tr>
+        </table>
+
+        <h1>4. Device Construction</h1>
+        
+        <p>Visually, the device represents a combination of a musical instrument, scientific apparatus, and ancient technology artifact:</p>
+
+        <h3>Appearance:</h3>
+        <ul>
+            <li><strong>Upper part:</strong> sphero-parabolic chamber made of polished granite, covered with copper, with embedded quartz lenses and rotating rings</li>
+            
+            <li><strong>Middle part:</strong> wave generation core — piezoelements, quartz generator, transducers</li>
+            
+            <li><strong>Lower part:</strong> control electronics, battery, power modules, servos</li>
+            
+            <li><strong>Additional elements:</strong> rotating head with focusing and touch control panel</li>
+        </ul>
+
+        <h3>Power System:</h3>
+        <ul>
+            <li>Autonomous Li-Ion battery power</li>
+            <li>Solar panel with MPPT controller</li>
+            <li>Wireless control interface</li>
+        </ul>
+
+        <div class="formula">
+            Conceptual formula: "An orchestra conducted by nature, where each material is an instrument, and the device is the composer"
+        </div>
+
+        <h1>5. Architectural Levels</h1>
+        
+        <p>The device is organized into four key levels, each performing unique functions. Modularity allows easy scaling, configuration, and system repair.</p>
+
+        <h2>Level 1: Emission Module (Wave Source)</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Components:</div>
+            <ul>
+                <li>Quartz resonator (base frequency)</li>
+                <li>Piezoceramic matrix (4 independent sources)</li>
+                <li>Bimorph acoustic transducers</li>
+            </ul>
+            
+            <div class="spec-title">Functions:</div>
+            <ul>
+                <li>Wave generation in wide frequency range</li>
+                <li>Simultaneous operation in multiple frequency ranges</li>
+                <li>Environment response perception</li>
+            </ul>
+        </div>
+
+        <h2>Level 2: Resonance Chamber and Focusing System</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Components:</div>
+            <ul>
+                <li>Amplification chamber (golden ratio shape)</li>
+                <li>Copper/silver/gold elements of internal surface</li>
+                <li>Quartz prisms, hydraulic lenses, motorized rings</li>
+            </ul>
+            
+            <div class="spec-title">Functions:</div>
+            <ul>
+                <li>Vibration focusing and amplification</li>
+                <li>Precise volume and direction adjustment</li>
+                <li>Adaptation to various materials and environmental conditions</li>
+            </ul>
+        </div>
+
+        <h2>Level 3: Control Module</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Components:</div>
+            <ul>
+                <li>ESP32 (central controller)</li>
+                <li>STM32H7 (DSP + FFT + AI module)</li>
+                <li>Memory for frequency database and tuning logic</li>
+            </ul>
+            
+            <div class="spec-title">Functions:</div>
+            <ul>
+                <li>Frequency generation (DDS)</li>
+                <li>Response analysis (FFT)</li>
+                <li>Automatic calibration and learning</li>
+                <li>User interaction interface</li>
+            </ul>
+        </div>
+
+        <h2>Level 4: Energy System and Stabilization</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Components:</div>
+            <ul>
+                <li>Lithium-ion battery + solar panel</li>
+                <li>Thermoelectric generators, piezogenerators</li>
+                <li>Voltage converter system</li>
+            </ul>
+            
+            <div class="spec-title">Functions:</div>
+            <ul>
+                <li>Hybrid power supply</li>
+                <li>Up to 20 hours autonomy</li>
+                <li>Self-charging from external environment</li>
+            </ul>
+        </div>
+
+        <h1>6. Module Interaction</h1>
+        
+        <h2>Interaction Logic:</h2>
+        <ol>
+            <li>User initiates material scanning</li>
+            <li>Modulator generates frequency comb — signal passes through piezoelements into chamber</li>
+            <li>Material "responds" with resonance, response sensors capture spectral fingerprint</li>
+            <li>Controller records peak frequencies, launches refinement cycle (tuning)</li>
+            <li>Chamber adjusts geometrically (motors change focus, prisms adjust direction)</li>
+            <li>Impact activation — selected mode (droplet levitation or mineral softening)</li>
+            <li>Feedback controls stability — on resonance loss, system corrects frequency or geometry</li>
+        </ol>
+
+        <h2>Level Interaction Diagram:</h2>
+        
+        <div class="diagram">
+╔═════════════════════════════════════╗
+║      Resonance Chamber              ║ ← Focusing mechanism (lenses/rings)
+╚═════════════════════════════════════╝
+            ↑ ↑ ↑ ↕ ↓ ↓ ↓
+╔═════════════════════════════════════╗
+║      Emission Module                ║ ← Transducers + quartz + piezo
+╚═════════════════════════════════════╝
+            ↑ ↑ ↑ ↕ ↓ ↓ ↓
+╔═════════════════════════════════════╗
+║   Control Electronics               ║ ← ESP32 + STM32H7 + interface
+╚═════════════════════════════════════╝
+            ↑ ↑ ↑ ↕ ↓ ↓ ↓
+╔═════════════════════════════════════╗
+║       Energy System                 ║ ← Power, generators, protection
+╚═════════════════════════════════════╝
+        </div>
+
+        <h2>Operating Modes:</h2>
+        <ul>
+            <li><strong>Scanning:</strong> Search for peak responses</li>
+            <li><strong>Calibration:</strong> Material frequency map formation</li>
+            <li><strong>Impact:</strong> Resonance operation</li>
+            <li><strong>Harmonic synthesis:</strong> Pattern/chord creation</li>
+            <li><strong>Automatic:</strong> Full AI autonomy</li>
+        </ul>
+
+        <h1>7. Control System</h1>
+        
+        <h2>Microcontrollers:</h2>
+        <ul>
+            <li><strong>ESP32</strong> — communication, interface, initial processing</li>
+            <li><strong>STM32H7</strong> — spectral analysis, PID controllers, signal processing</li>
+        </ul>
+
+        <h2>Modules:</h2>
+        <ul>
+            <li><strong>DDS generator</strong> (Direct Digital Synthesis) → wave pattern generation with 0.001 Hz step</li>
+            <li><strong>Bluetooth / WiFi module</strong> (built into ESP32) → mobile app communication</li>
+        </ul>
+
+        <h2>Control Interface:</h2>
+        
+        <h3>Frontend:</h3>
+        <ul>
+            <li>2.4" OLED display → real-time parameter visualization</li>
+            <li>Encoder with button → fine frequency tuning</li>
+            <li>Touch buttons: Scan, Calibration, Tuning, Impact, Auto</li>
+            <li>RGB LED resonance indication</li>
+        </ul>
+
+        <h3>Mobile Application:</h3>
+        <ul>
+            <li>Spectrogram display</li>
+            <li>Learning mode (resonance profile creation)</li>
+            <li>Material database (expandable)</li>
+            <li>Focus, volume, direction control</li>
+            <li>Biofeedback (heart rate monitor, EEG connection)</li>
+        </ul>
+
+        <h1>8. Electrical Schematic</h1>
+        
+        <h2>Power Supply:</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Main Source:</div>
+            <ul>
+                <li>Lithium-ion battery: 12V, 10Ah</li>
+                <li>50W solar panel with MPPT controller</li>
+                <li>Up to 20 hours autonomous operation</li>
+            </ul>
+        </div>
+
+        <h3>Intermediate Blocks:</h3>
+        <p><strong>DC-DC Converter:</strong></p>
+        <ul>
+            <li>12V → 5V (for ESP32, display)</li>
+            <li>12V → ±12V (for amplifiers and transducers)</li>
+            <li>12V → 3.3V (for STM32H7 DSP, sensors)</li>
+        </ul>
+
+        <h3>Backup Circuits:</h3>
+        <ul>
+            <li>Built-in piezogenerators in housing → additional power from vibrations</li>
+            <li>Thermoelectric generator (on external radiator)</li>
+            <li>Induction coils → external EM field harvesting</li>
+        </ul>
+
+        <h2>General Connection Diagram:</h2>
+        
+        <div class="diagram">
+[Li-Ion Battery 12V]
+        ↓
+[MPPT + DC-DC Converter]
+├── 5V → ESP32 + display + sensors
+├── ±12V → Transducer amplifiers  
+├── 3.3V → STM32H7 + ADC
+└── Variable V → servos
+
+[ESP32] ←→ [STM32H7] ←→ [DDS]
+   ↓           ↓           ↓
+[WiFi/BT]   [FFT/DSP]  [Amplifier]
+   ↓           ↓           ↓
+[Mobile]    [Analysis]  [Piezo/acoustic matrix]
+[app]                   ↓
+                   [Resonance chamber]
+                        ↓
+              [Feedback sensors] → [STM32]
+        </div>
+
+        <h2>Module Communication:</h2>
+        <ul>
+            <li><strong>SPI:</strong> DDS ←→ STM32H7</li>
+            <li><strong>UART:</strong> STM32H7 ←→ ESP32</li>
+            <li><strong>I2C:</strong> display, sensors, encoders</li>
+            <li><strong>GPIO:</strong> servo control, relays, indication</li>
+        </ul>
+
+        <h2>Servos and Actuators:</h2>
+        <ul>
+            <li>12x micro servos (controlled via ESP32)</li>
+            <li>Regulate copper plate positions</li>
+            <li>Change resonance chamber volume</li>
+            <li>4x micropumps (for hydrolens)</li>
+            <li>Lens curvature control via Bluetooth</li>
+        </ul>
+
+        <h1>9. Software</h1>
+        
+        <h2>ESP32 (Main Logic):</h2>
+        <ul>
+            <li>Processes interface input</li>
+            <li>Sends commands to STM32</li>
+            <li>Receives analysis results and visualizes</li>
+            <li>Controls servos and lighting</li>
+        </ul>
+
+        <h2>STM32H7 (Signal Processing):</h2>
+        <ul>
+            <li>Performs FFT signal analysis</li>
+            <li>Calculates "resonance response" and builds spectrum</li>
+            <li>Compares with fingerprint database</li>
+            <li>Adjusts DDS generator and phase shift</li>
+            <li>Optimizes impact in real-time</li>
+        </ul>
+
+        <div class="spec-box">
+            <div class="spec-title">"Living Response" Principle:</div>
+            <p>RP-α operates not as a "noise generator" but as a sensitive musical instrument. It constantly "listens" to responses and adjusts, like a musician playing in duet with material.</p>
+            <ul>
+                <li><strong>Resonance</strong> — is not just frequency. It's response.</li>
+                <li><strong>Modulator</strong> — conductor.</li>
+                <li><strong>Chamber</strong> — acoustic stage.</li>
+                <li><strong>Material</strong> — improvisation partner.</li>
+            </ul>
+        </div>
+
+        <h1>10. Operating Modes and Applications</h1>
+        
+        <h2>Basic Modes:</h2>
+        
+        <table>
+            <tr>
+                <th>Mode</th>
+                <th>Description</th>
+                <th>Application</th>
+            </tr>
+            <tr>
+                <td>Scanning</td>
+                <td>Search for material resonance frequencies</td>
+                <td>Unknown object analysis</td>
+            </tr>
+            <tr>
+                <td>Calibration</td>
+                <td>Frequency map creation</td>
+                <td>Material profile construction</td>
+            </tr>
+            <tr>
+                <td>Impact</td>
+                <td>Directed resonance impact</td>
+                <td>Property modification</td>
+            </tr>
+            <tr>
+                <td>Harmonic synthesis</td>
+                <td>Complex pattern creation</td>
+                <td>Complex effects</td>
+            </tr>
+            <tr>
+                <td>Autonomous</td>
+                <td>AI-controlled interaction</td>
+                <td>Self-learning experiments</td>
+            </tr>
+        </table>
+
+        <h2>"Resonance Music" — Advanced Mode:</h2>
+        <p>Enables creation of:</p>
+        <ul>
+            <li><strong>"Matter Chords"</strong> — complex wave patterns</li>
+            <li><strong>"Substance Timbres"</strong> — unique frequency combinations for each material</li>
+            <li><strong>"Interaction Songs"</strong> — adaptive impact programs with improvisation elements</li>
+        </ul>
+
+        <div class="spec-box">
+            <div class="spec-title">Data Format:</div>
+            <p>Each "melody" is recorded in .res format (spectral file). Can be shared between researchers, maintain libraries, build new language of matter interaction.</p>
+        </div>
+
+        <h1>11. Usage Stages</h1>
+        
+        <h2>Stage 1. Basic Experiments</h2>
+        <ul>
+            <li><strong>Water droplet levitation</strong> at 40—70 Hz frequencies</li>
+            <li><strong>Salt crystal structure changes</strong> (slow oscillations)</li>
+            <li><strong>Plant reactions</strong> to various frequencies → growth stimulation, leaf closure</li>
+        </ul>
+
+        <h2>Stage 2. Stone Work</h2>
+        <ul>
+            <li><strong>Limestone softening</strong> at 15—25 Hz frequencies</li>
+            <li><strong>Ore electrical conductivity changes</strong> (copper, iron)</li>
+            <li><strong>Quartz synchronization</strong> → oscillation quality factor increase</li>
+        </ul>
+
+        <h2>Stage 3. Advanced Effects</h2>
+        <ul>
+            <li><strong>Small object levitation</strong> (2—10 g)</li>
+            <li><strong>Density changes</strong> or structural ordering</li>
+            <li><strong>Human biofield impact</strong> through alpha synchronization (8—12 Hz)</li>
+        </ul>
+
+        <h2>Biofeedback and Consciousness Work</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">"Empathy" Mode:</div>
+            <ul>
+                <li>Human alpha rhythm reading</li>
+                <li>Device synchronization with brain rhythms</li>
+                <li>Potential emotional and neural state co-regulation</li>
+            </ul>
+            
+            <div class="spec-title">Interaction Physics:</div>
+            <p>Brain alpha waves (8—12 Hz) coincide with Schumann frequency (~7.83 Hz). This creates coherence effect between human, device, and planet.</p>
+        </div>
+
+        <h1>12. Safety Measures</h1>
+        
+        <div class="danger">
+            <div class="danger-title">STRICTLY PROHIBITED:</div>
+            <ul>
+                <li>Using device for intentional destruction</li>
+                <li>Violating others' will or bioenergetics without consent</li>
+                <li>Operating in unstable emotional state</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <div class="warning-title">RECOMMENDED:</div>
+            <ul>
+                <li>Tune yourself before use (meditation, silence)</li>
+                <li>Keep journal of impacts and responses</li>
+                <li>Don't interfere with natural processes without extreme necessity</li>
+            </ul>
+        </div>
+
+        <h2>Biocompatibility</h2>
+        
+        <h3>Materials:</h3>
+        <ul>
+            <li><strong>Wood (ash):</strong> natural insulator</li>
+            <li><strong>Copper, silver, gold:</strong> neutral and stable</li>
+            <li><strong>Granite, quartz:</strong> safe, resonant</li>
+        </ul>
+
+        <h3>Safety Mechanisms:</h3>
+        <ul>
+            <li>Auto-shutdown on overload</li>
+            <li>Biometric activation (experimental)</li>
+            <li>Impact power limitation</li>
+        </ul>
+
+        <h2>Ethical Principles</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Device Philosophy:</div>
+            <p><em>"Don't suppress — listen. Don't destroy — tune."</em></p>
+            
+            <ul>
+                <li><strong>Harmony over violence</strong> — it doesn't break or push. It sings in unison, and matter responds.</li>
+                <li><strong>Precision over power</strong> — effect is achieved not by amplitude, but by frequency matching.</li>
+                <li><strong>Patience over haste</strong> — resonance is dialogue. Matter needs time to respond.</li>
+                <li><strong>Understanding over coercion</strong> — first explore, listen. Then act.</li>
+            </ul>
+        </div>
+
+        <h1>Appendices</h1>
+        
+        <h2>Appendix A. Dimensions and Layout</h2>
+        
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Standard Version</th>
+                <th>Portable Version</th>
+            </tr>
+            <tr>
+                <td>Dimensions</td>
+                <td>70×70×45 cm</td>
+                <td>30×30×15 cm</td>
+            </tr>
+            <tr>
+                <td>Weight</td>
+                <td>~25 kg</td>
+                <td>~5 kg</td>
+            </tr>
+            <tr>
+                <td>Housing material (external)</td>
+                <td colspan="2">Wood (ash) with copper shielding</td>
+            </tr>
+            <tr>
+                <td>Housing material (internal)</td>
+                <td colspan="2">Granite + quartz inserts</td>
+            </tr>
+            <tr>
+                <td>Resonance chamber</td>
+                <td colspan="2">Copper, silver, gold (by zones)</td>
+            </tr>
+        </table>
+
+        <h2>Appendix B. Final Provisions</h2>
+        
+        <div class="formula">
+            "All this is not new. This is remembering. The device is an interface. But not between 'technology and object', but between your consciousness and the world. Resonance Tuning is not just a mechanism. It's a language with which you can speak to stone."
+        </div>
+
+        <p>The RP-α device represents an attempt to create technology based on principles of harmonic interaction with matter. It is not intended for destruction or coercion, but serves as an instrument for subtle resonance dialogue with substance in its own "language" of frequencies.</p>
+
+        <div class="spec-box">
+            <div class="spec-title">Core Principles:</div>
+            <ul>
+                <li><strong>Harmonic resonance</strong> — working with natural frequencies rather than against them</li>
+                <li><strong>Adaptive response</strong> — continuous feedback and adjustment</li>
+                <li><strong>Minimal energy</strong> — maximum effect with minimum power consumption</li>
+                <li><strong>Consciousness interface</strong> — bridging human intention and material response</li>
+            </ul>
+        </div>
+
+        <h2>Appendix C. Technical References</h2>
+        
+        <h3>Frequency Ranges and Applications:</h3>
+        <table>
+            <tr>
+                <th>Frequency Range</th>
+                <th>Primary Applications</th>
+                <th>Typical Materials</th>
+            </tr>
+            <tr>
+                <td>0.1 - 10 Hz</td>
+                <td>Structural modifications</td>
+                <td>Dense minerals, metals</td>
+            </tr>
+            <tr>
+                <td>10 - 100 Hz</td>
+                <td>Mechanical resonance</td>
+                <td>Crystals, stones, liquids</td>
+            </tr>
+            <tr>
+                <td>100 Hz - 10 kHz</td>
+                <td>Acoustic levitation</td>
+                <td>Small objects, droplets</td>
+            </tr>
+            <tr>
+                <td>10 kHz - 1 MHz</td>
+                <td>Molecular interactions</td>
+                <td>Biological samples, polymers</td>
+            </tr>
+        </table>
+
+        <h3>Power Consumption by Mode:</h3>
+        <table>
+            <tr>
+                <th>Operating Mode</th>
+                <th>Power Draw</th>
+                <th>Duration (20Ah battery)</th>
+            </tr>
+            <tr>
+                <td>Standby</td>
+                <td>0.5W</td>
+                <td>480 hours</td>
+            </tr>
+            <tr>
+                <td>Scanning</td>
+                <td>5W</td>
+                <td>48 hours</td>
+            </tr>
+            <tr>
+                <td>Calibration</td>
+                <td>8W</td>
+                <td>30 hours</td>
+            </tr>
+            <tr>
+                <td>Low-power impact</td>
+                <td>12W</td>
+                <td>20 hours</td>
+            </tr>
+            <tr>
+                <td>High-power impact</td>
+                <td>25W</td>
+                <td>9.6 hours</td>
+            </tr>
+        </table>
+
+        <h2>Appendix D. Maintenance Schedule</h2>
+        
+        <div class="spec-box">
+            <div class="spec-title">Daily Maintenance:</div>
+            <ul>
+                <li>Visual inspection of external components</li>
+                <li>Battery level check</li>
+                <li>Resonance chamber cleaning (if needed)</li>
+            </ul>
+        </div>
+
+        <div class="spec-box">
+            <div class="spec-title">Weekly Maintenance:</div>
+            <ul>
+                <li>Frequency calibration verification</li>
+                <li>Servo mechanism lubrication</li>
+                <li>Software backup and update check</li>
+            </ul>
+        </div>
+
+        <div class="spec-box">
+            <div class="spec-title">Monthly Maintenance:</div>
+            <ul>
+                <li>Full system diagnostic</li>
+                <li>Piezoelectric element inspection</li>
+                <li>Power system efficiency test</li>
+                <li>Database optimization and cleanup</li>
+            </ul>
+        </div>
+
+        <h2>Appendix E. Troubleshooting Guide</h2>
+        
+        <table>
+            <tr>
+                <th>Problem</th>
+                <th>Possible Cause</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>No resonance response</td>
+                <td>Frequency mismatch</td>
+                <td>Recalibrate frequency sweep</td>
+            </tr>
+            <tr>
+                <td>Weak signal output</td>
+                <td>Piezoelectric degradation</td>
+                <td>Replace piezo elements</td>
+            </tr>
+            <tr>
+                <td>Unstable levitation</td>
+                <td>Environmental interference</td>
+                <td>Reduce ambient vibrations</td>
+            </tr>
+            <tr>
+                <td>Rapid battery drain</td>
+                <td>Amplifier inefficiency</td>
+                <td>Check power supply circuits</td>
+            </tr>
+            <tr>
+                <td>Servo malfunction</td>
+                <td>Mechanical binding</td>
+                <td>Clean and lubricate mechanisms</td>
+            </tr>
+        </table>
+
+        <div class="signature-block">
+            <div class="signature">
+                <div class="signature-line"></div>
+                <p>Chief Engineer</p>
+            </div>
+            <div class="signature">
+                <div class="signature-line"></div>
+                <p>Technical Director</p>
+            </div>
+            <div class="signature">
+                <div class="signature-line"></div>
+                <p>Approved</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #6c757d;">
+            <p>Document prepared in accordance with ISO 9001:2015</p>
+            <p>© 2025 Resonance Technology Laboratory</p>
+        </div>
+    </div>
+</body>
+</html>
